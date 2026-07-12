@@ -208,6 +208,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         td.style.backgroundColor = 'var(--age-child)';
                     } else if (age < 20) {
                         td.style.backgroundColor = 'var(--age-teen)';
+                    } else if (age < 40) {
+                        td.style.backgroundColor = 'var(--age-young-adult)';
                     } else if (age < 65) {
                         td.style.backgroundColor = 'var(--age-adult)';
                     } else {

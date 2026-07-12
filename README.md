@@ -7,7 +7,8 @@ A modern, client-side web application designed to track and visualize family lif
 - **Visual Timeline**: See your family members' ages mapped across a grid of years. Cells are color-coded based on the person's exact age in that specific year:
   - **Child (0-12)**: Rose
   - **Teenager (13-19)**: Emerald
-  - **Adult (20-64)**: Amber
+  - **Young Adult (20-39)**: Cyan
+  - **Middle Age (40-64)**: Amber
   - **Senior (65+)**: Purple
 - **Precise Age Calculations**: Add members using just birth/death years, or provide exact months and days for perfectly precise age tracking.
 - **Dynamic Range Controls**: Easily adjust the visible timeline. Use quick presets to jump to important times (e.g., "First Born Year", "This Year").
