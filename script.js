@@ -88,22 +88,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (storedMembers) {
             familyMembers = JSON.parse(storedMembers);
         } else {
-            // Default demo data based on spreadsheet
-            familyMembers = [
-                { id: generateId(), name: 'Karin', birthYear: 1931, deathYear: 2021 },
-                { id: generateId(), name: 'Sven', birthYear: 1925, deathYear: 2021 },
-                { id: generateId(), name: 'Farfar', birthYear: 1900, deathYear: 1976 },
-                { id: generateId(), name: 'Morfar', birthYear: 1908, deathYear: 1976 },
-                { id: generateId(), name: 'Mormor', birthYear: 1909, deathYear: null },
-                { id: generateId(), name: 'Pappa', birthYear: 1927, deathYear: 2017 },
-                { id: generateId(), name: 'Mamma', birthYear: 1934, deathYear: null },
-                { id: generateId(), name: 'Per-Arne', birthYear: 1959, deathYear: null },
-                { id: generateId(), name: 'Stefan', birthYear: 1964, deathYear: null },
-                { id: generateId(), name: 'Sommai', birthYear: 1977, deathYear: null },
-                { id: generateId(), name: 'Anna', birthYear: 1956, deathYear: null },
-                { id: generateId(), name: 'Miranda', birthYear: 1994, deathYear: null },
-                { id: generateId(), name: 'Oliver / Gabriel', birthYear: 1998, deathYear: null }
-            ];
+            // Start with empty data
+            familyMembers = [];
             saveData();
         }
 
