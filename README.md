@@ -12,6 +12,7 @@ A modern, client-side web application designed to track and visualize family lif
   - **Senior (65+)**: Purple
 - **Precise Age Calculations**: Add members using just birth/death years, or provide exact months and days for perfectly precise age tracking.
 - **Dynamic Range Controls**: Easily adjust the visible timeline. Use quick presets to jump to important times (e.g., "First Born Year", "This Year").
+- **Hide OOR (Out-of-Range)**: A toggleable filter that automatically hides people who were not alive during the currently viewed timeline, keeping your screen uncluttered.
 - **Center Tool**: Focus your view on a specific year and automatically display a set number of years before and after it.
 - **Data Management**: All data is saved locally in your browser. You can export your family data to a `.json` file, import existing data, or clear everything.
 - **Demo Data**: Quickly load a completely made-up example family to see how the application works.

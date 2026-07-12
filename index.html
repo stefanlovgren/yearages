@@ -16,8 +16,8 @@
         <main class="main-content">
             <div class="top-controls glass-panel">
                 <div class="top-controls-left">
-                    <div class="app-title">
-                        <i class="fa-solid fa-users"></i> Family Ages
+                    <div class="app-title" title="Family Ages">
+                        <i class="fa-solid fa-users"></i>
                     </div>
                     <button id="open-modal-btn" class="btn btn-primary btn-sm" style="width: auto; padding: 0.4rem 0.75rem;"><i class="fa-solid fa-plus"></i> Add</button>
                     
@@ -29,6 +29,11 @@
                             <option value="az">A-Z</option>
                             <option value="za">Z-A</option>
                         </select>
+                    </div>
+                    
+                    <div class="minimal-control" style="gap: 0.3rem;">
+                        <input type="checkbox" id="hide-out-of-range" checked style="accent-color: var(--accent-primary); cursor: pointer;">
+                        <label for="hide-out-of-range" style="text-transform: none; font-weight: 500; font-size: 0.8rem; cursor: pointer;" title="Hide members who are not alive in the visible range">Hide OOR</label>
                     </div>
                     <div class="minimal-control">
                         <label title="Date Range"><i class="fa-solid fa-calendar-days"></i></label>
@@ -166,7 +171,7 @@
                 <p>Click <strong>Add Member</strong> to create a new person. You can enter just their birth/death year, or you can provide exact months and days for perfectly precise age calculations.</p>
                 
                 <h3 style="color: var(--text-primary); margin-top: 1.5rem; font-size: 1.1rem;"><i class="fa-solid fa-calendar-days"></i> Range Selection</h3>
-                <p>The table displays a specific span of years. You can change this range by typing in new <strong>Start</strong> and <strong>End</strong> years, or by using the preset dropdowns next to them to quickly jump to important times (like the First Born Year).</p>
+                <p>The table displays a specific span of years. You can change this range by typing in new years or by using the preset dropdowns. You can also check the <strong>Hide OOR</strong> box to automatically hide any family members who were not alive during the visible range.</p>
                 
                 <h3 style="color: var(--text-primary); margin-top: 1.5rem; font-size: 1.1rem;"><i class="fa-solid fa-bullseye"></i> Centering the View</h3>
                 <p>If you want to focus on a specific year, use the <strong>Center</strong> tool. Pick a year from the dropdown or type it in. The table will center on that year, displaying the number of years before and after it defined by the <strong>±</strong> box.</p>
@@ -187,6 +192,6 @@
         </div>
     </div>
 
-    <script src="script.js?v=30"></script>
+    <script src="script.js?v=34"></script>
 </body>
 </html>

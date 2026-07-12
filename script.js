@@ -145,7 +145,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Render Body
         tableBody.innerHTML = '';
+        
+        const hideOutOfRange = document.getElementById('hide-out-of-range') ? document.getElementById('hide-out-of-range').checked : false;
+
         sortedMembers.forEach(member => {
+            if (hideOutOfRange) {
+                const isBornAfterRange = member.birthYear > currentEndYear;
+                const isDeadBeforeRange = member.deathYear && member.deathYear < currentStartYear;
+                if (isBornAfterRange || isDeadBeforeRange) {
+                    return; // skip rendering this member
+                }
+            }
+
             const tr = document.createElement('tr');
             
             let age = 0;
@@ -581,6 +592,20 @@ document.addEventListener('DOMContentLoaded', () => {
         sortOrderSelect.addEventListener('change', (e) => {
             currentSortOrder = e.target.value;
             saveData();
+            renderGrid();
+        });
+    }
+
+    // Hide Out-of-Range toggle
+    const hideOutOfRangeCheckbox = document.getElementById('hide-out-of-range');
+    if (hideOutOfRangeCheckbox) {
+        const storedHideState = localStorage.getItem('hideOutOfRange');
+        if (storedHideState !== null) {
+            hideOutOfRangeCheckbox.checked = storedHideState === 'true';
+        }
+        
+        hideOutOfRangeCheckbox.addEventListener('change', (e) => {
+            localStorage.setItem('hideOutOfRange', e.target.checked);
             renderGrid();
         });
     }
