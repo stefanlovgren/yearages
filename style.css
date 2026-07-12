@@ -14,7 +14,7 @@
     /* Cell Highlighting based on Age */
     --age-child: rgba(244, 63, 94, 0.2); /* Rose */
     --age-teen: rgba(16, 185, 129, 0.2); /* Emerald */
-    --age-young-adult: rgba(6, 182, 212, 0.2); /* Cyan */
+    --age-young-adult: rgba(59, 130, 246, 0.2); /* Blue */
     --age-adult: rgba(245, 158, 11, 0.2); /* Amber (Middle Age) */
     --age-senior: rgba(139, 92, 246, 0.2); /* Purple */
 
