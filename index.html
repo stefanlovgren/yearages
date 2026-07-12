@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Ages Tracker</title>
+    <meta name="description" content="A modern web application to track and visualize family ages over the years.">
+    <link rel="stylesheet" href="style.css?v=7">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Main Content for the Grid -->
+        <main class="main-content">
+            <div class="top-controls glass-panel">
+                <div class="top-controls-left">
+                    <div class="app-title">
+                        <i class="fa-solid fa-users"></i> Family Ages
+                    </div>
+                    <button id="open-modal-btn" class="btn btn-primary btn-sm" style="width: auto; padding: 0.4rem 0.75rem;"><i class="fa-solid fa-plus"></i> Add</button>
+                    
+                    <div class="minimal-control">
+                        <label for="sort-order" title="Sort Order"><i class="fa-solid fa-sort"></i></label>
+                        <select id="sort-order" class="minimal-input">
+                            <option value="oldest">Oldest First</option>
+                            <option value="youngest">Youngest First</option>
+                            <option value="az">A-Z</option>
+                            <option value="za">Z-A</option>
+                        </select>
+                    </div>
+                    <div class="minimal-control">
+                        <label title="Date Range"><i class="fa-solid fa-calendar-days"></i></label>
+                        
+                        <select id="start-preset" class="minimal-input preset-select" title="Preset Start Year">
+                            <option value="">Start...</option>
+                            <option value="all">All (First to Present)</option>
+                            <option value="this-year">This Year</option>
+                            <option value="first-born">First Born Year</option>
+                            <option value="last-born">Last Born Year</option>
+                            <option value="first-dead">First Death Year</option>
+                            <option value="last-dead">Last Death Year</option>
+                            <option value="minus-10">- 10 Years</option>
+                            <option value="plus-10">+ 10 Years</option>
+                        </select>
+                        <input type="number" id="start-year" class="minimal-input year-input" value="2007">
+                        
+                        <span>-</span>
+                        
+                        <input type="number" id="end-year" class="minimal-input year-input" value="2030">
+                        <select id="end-preset" class="minimal-input preset-select" title="Preset End Year">
+                            <option value="">End...</option>
+                            <option value="all">All (First to Present)</option>
+                            <option value="this-year">This Year</option>
+                            <option value="first-born">First Born Year</option>
+                            <option value="last-born">Last Born Year</option>
+                            <option value="first-dead">First Death Year</option>
+                            <option value="last-dead">Last Death Year</option>
+                            <option value="minus-10">- 10 Years</option>
+                            <option value="plus-10">+ 10 Years</option>
+                        </select>
+                    </div>
+                    <div class="minimal-control">
+                        <label title="Center Range"><i class="fa-solid fa-bullseye"></i></label>
+                        <select id="center-year-dropdown" class="minimal-input" title="Select a Year">
+                            <option value="">Year...</option>
+                        </select>
+                        <input type="number" id="center-year" class="minimal-input year-input" placeholder="Or type year">
+                        <span style="color: var(--text-secondary); font-weight: bold;">±</span>
+                        <input type="number" id="center-span" class="minimal-input" style="width: 50px;" value="5" title="Years before/after">
+                    </div>
+                    
+                    <div class="legend-compact" title="Color Legend">
+                        <span class="legend-badge" style="background-color: var(--age-child);">0-12</span>
+                        <span class="legend-badge" style="background-color: var(--age-teen);">13-19</span>
+                        <span class="legend-badge" style="background-color: var(--age-adult);">20-64</span>
+                        <span class="legend-badge" style="background-color: var(--age-senior);">65+</span>
+                    </div>
+                </div>
+
+                <div class="top-actions">
+                    <button id="help-btn" class="action-btn" title="Help">
+                        <i class="fa-solid fa-circle-question"></i>
+                    </button>
+                    <div class="action-divider"></div>
+                    <label for="import-file" class="action-btn" title="Import Data">
+                        <i class="fa-solid fa-upload"></i>
+                        <input type="file" id="import-file" accept=".json" style="display: none;">
+                    </label>
+                    <button id="export-btn" class="action-btn" title="Export Data">
+                        <i class="fa-solid fa-download"></i>
+                    </button>
+                    <button id="load-demo-btn" class="action-btn" title="Load Example Data">
+                        <i class="fa-solid fa-flask"></i>
+                    </button>
+                    <div class="action-divider"></div>
+                    <button id="reset-btn" class="action-btn danger" title="Reset to Defaults">
+                        <i class="fa-solid fa-eraser"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid-wrapper glass-panel">
+                <table id="ages-table">
+                    <thead>
+                        <tr id="table-header-row">
+                            <!-- Dynamic years will go here -->
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                        <!-- Dynamic member rows will go here -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal for Add/Edit Member -->
+    <div id="member-modal" class="modal">
+        <div class="modal-content glass-panel">
+            <header class="modal-header">
+                <h2 id="modal-title">Manage Family Member</h2>
+                <button id="close-modal-btn" class="icon-btn" title="Close"><i class="fa-solid fa-xmark"></i></button>
+            </header>
+            <form id="add-member-form">
+                <div class="input-group">
+                    <label for="member-name">Name</label>
+                    <input type="text" id="member-name" required placeholder="e.g. Karin">
+                </div>
+                <div class="input-group">
+                    <label>Birth Date (Year * / Month / Day)</label>
+                    <div class="input-row" style="gap: 0.5rem;">
+                        <input type="number" id="member-birth" required placeholder="YYYY" style="width: 50%;">
+                        <input type="number" id="member-birth-month" placeholder="MM" min="1" max="12" style="width: 25%;">
+                        <input type="number" id="member-birth-day" placeholder="DD" min="1" max="31" style="width: 25%;">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Death Date (Year / Month / Day)</label>
+                    <div class="input-row" style="gap: 0.5rem;">
+                        <input type="number" id="member-death" placeholder="YYYY" style="width: 50%;">
+                        <input type="number" id="member-death-month" placeholder="MM" min="1" max="12" style="width: 25%;">
+                        <input type="number" id="member-death-day" placeholder="DD" min="1" max="31" style="width: 25%;">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="member-death-age">Exact Death Age (Overrides calc)</label>
+                    <input type="number" id="member-death-age" placeholder="e.g. 87">
+                </div>
+                <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Add Member</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal for Help -->
+    <div id="help-modal" class="modal">
+        <div class="modal-content glass-panel" style="max-width: 600px;">
+            <header class="modal-header">
+                <h2><i class="fa-solid fa-circle-question"></i> How to use Family Ages</h2>
+                <button id="close-help-btn" class="icon-btn" title="Close"><i class="fa-solid fa-xmark"></i></button>
+            </header>
+            <div style="line-height: 1.6; color: var(--text-secondary); font-size: 0.95rem;">
+                <h3 style="color: var(--text-primary); margin-top: 1rem; font-size: 1.1rem;"><i class="fa-solid fa-users"></i> Adding Members</h3>
+                <p>Click <strong>Add Member</strong> to create a new person. You can enter just their birth/death year, or you can provide exact months and days for perfectly precise age calculations.</p>
+                
+                <h3 style="color: var(--text-primary); margin-top: 1.5rem; font-size: 1.1rem;"><i class="fa-solid fa-calendar-days"></i> Range Selection</h3>
+                <p>The table displays a specific span of years. You can change this range by typing in new <strong>Start</strong> and <strong>End</strong> years, or by using the preset dropdowns next to them to quickly jump to important times (like the First Born Year).</p>
+                
+                <h3 style="color: var(--text-primary); margin-top: 1.5rem; font-size: 1.1rem;"><i class="fa-solid fa-bullseye"></i> Centering the View</h3>
+                <p>If you want to focus on a specific year, use the <strong>Center</strong> tool. Pick a year from the dropdown or type it in. The table will center on that year, displaying the number of years before and after it defined by the <strong>±</strong> box.</p>
+                
+                <h3 style="color: var(--text-primary); margin-top: 1.5rem; font-size: 1.1rem;"><i class="fa-solid fa-palette"></i> Year Coloring</h3>
+                <p>The table cells are dynamically colored based on the person's exact age in that specific year, mapping to life stages:</p>
+                <ul style="margin-top: 0.5rem; margin-left: 1.5rem; color: var(--text-secondary);">
+                    <li><strong style="color: var(--age-child);">Child (0-12)</strong></li>
+                    <li><strong style="color: var(--age-teen);">Teenager (13-19)</strong></li>
+                    <li><strong style="color: var(--age-adult);">Adult (20-64)</strong></li>
+                    <li><strong style="color: var(--age-senior);">Senior (65+)</strong></li>
+                </ul>
+                
+                <h3 style="color: var(--text-primary); margin-top: 1.5rem; font-size: 1.1rem;"><i class="fa-solid fa-download"></i> Data Management</h3>
+                <p>Use the buttons in the top right to <strong>Export</strong> your family data to a file, <strong>Import</strong> an existing file, load completely made-up <strong>Example Data</strong> (<i class="fa-solid fa-flask"></i>) to test the app, or entirely <strong>Clear</strong> the current data.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js?v=28"></script>
+</body>
+</html>
